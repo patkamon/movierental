@@ -2,7 +2,7 @@ import re
 import unittest 
 from customer import Customer
 from rental import Rental
-from movie import Movie
+from movie import Movie, PriceCode
 
 class CustomerTest(unittest.TestCase): 
 	""" Tests of the Customer class"""
@@ -14,21 +14,21 @@ class CustomerTest(unittest.TestCase):
 		movies = list of some movies
 		"""
 		self.c = Customer("Movie Mogul")
-		self.new_movie = Movie("Mulan", Movie.NEW_RELEASE)
-		self.regular_movie = Movie("CitizenFour", Movie.REGULAR)
-		self.childrens_movie = Movie("Frozen", Movie.CHILDRENS)
+		self.new_movie = Movie("Mulan", PriceCode.new_release)
+		self.regular_movie = Movie("CitizenFour", PriceCode.regular)
+		self.childrens_movie = Movie("Frozen", PriceCode.childrens)
 
 	def test_billing(self):
 		"""Test billing is correct."""
-		self.assertEqual(15, Rental(self.new_movie, 5).rental_price())
+		self.assertEqual(15, Rental(self.new_movie,5).rental_price())
 		self.assertEqual(3, Rental(self.childrens_movie, 4).rental_price())
 		self.assertEqual(3.5, Rental(self.regular_movie, 3).rental_price())
 
 	def test_renter_point(self):
 		"""Test renter point work properly."""
-		self.assertEqual(5, Rental(self.new_movie, 5).renter_point())
-		self.assertEqual(1, Rental(self.regular_movie, 3).renter_point())
-		self.assertEqual(1, Rental(self.childrens_movie, 4).renter_point())
+		self.assertEqual(5, self.new_movie.get_renter_point(5))
+		self.assertEqual(1, self.childrens_movie.get_renter_point(4))
+		self.assertEqual(1, self.regular_movie.get_renter_point(3))
 
 	def test_statement(self):
 		stmt = self.c.statement()

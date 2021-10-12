@@ -1,5 +1,5 @@
 from rental import Rental
-from movie import Movie
+from movie import Movie, PriceCode
 
 
 class Customer:
@@ -23,22 +23,27 @@ class Customer:
     
     def statement(self):
         """
-            Print all the rentals in current period, 
+            Print all the rentals in current period,
             along with total charges and reward points.
             Returns:
                 the statement as a String
         """
-        total_amount = 0 # total charges
-        frequent_renter_points = 0 
+
+        total_amount = 0   # total charges
+        frequent_renter_points = 0
         statement = f"Rental Report for {self.name}\n\n"
         fmt = "{:32s}    {:4s} {:6s}\n"
         statement += fmt.format("Movie Title", "Days", "Price")
         fmt = "{:32s}   {:4d} {:6.2f}\n"
 
         for rental in self.rentals:
-            frequent_renter_points += rental.renter_point()
+            frequent_renter_points += rental.get_movie()\
+                    .get_renter_point(rental.get_days_rented())
             #  add detail line to statement
-            statement += fmt.format(rental.get_movie().get_title(), rental.get_days_rented(), rental.rental_price())
+            statement += fmt.format(rental.get_movie()
+                                    .get_title(),
+                                    rental.get_days_rented(),
+                                    rental.rental_price())
             # and accumulate activity
             total_amount += rental.rental_price()
 
@@ -46,7 +51,8 @@ class Customer:
         statement += "\n"
         statement += "{:32s} {:6s} {:6.2f}\n".format(
                        "Total Charges", "", total_amount)
-        statement += "Frequent Renter Points earned: {}\n".format(frequent_renter_points)
+        statement += "Frequent Renter Points earned: {}\n"\
+            .format(frequent_renter_points)
 
         return statement
 
@@ -54,8 +60,8 @@ class Customer:
 if __name__ == "__main__":
     customer = Customer("Edward Snowden")
     print(customer.statement())
-    movie = Movie("Hacker Noon", Movie.REGULAR)
+    movie = Movie("Hacker Noon", PriceCode.regular)
     customer.add_rental(Rental(movie, 2))
-    movie = Movie("CitizenFour", Movie.NEW_RELEASE)
+    movie = Movie("CitizenFour", PriceCode.new_release)
     customer.add_rental(Rental(movie, 3))
     print(customer.statement())
