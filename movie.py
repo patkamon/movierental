@@ -33,9 +33,8 @@ class Movie:
 	"""
 
 	def __init__(self, title, price_code: PriceCode):
-		def __init__(self, price_code: PriceCode):
-			if not isinstance(price_code, PriceCode):
-				raise TypeError("price_code must be in PriceCode")
+		if not isinstance(price_code, PriceCode):
+			raise TypeError("price_code must be in PriceCode")
 		# Initialize a new movie. 
 		self.title = title
 		self.price_code = price_code
