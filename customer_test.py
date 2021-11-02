@@ -26,9 +26,13 @@ class CustomerTest(unittest.TestCase):
 
 	def test_renter_point(self):
 		"""Test renter point work properly."""
-		self.assertEqual(5, self.new_movie.get_renter_point(5))
-		self.assertEqual(1, self.childrens_movie.get_renter_point(4))
-		self.assertEqual(1, self.regular_movie.get_renter_point(3))
+		self.assertEqual(5, Rental(self.new_movie, 5).get_renter_point(5))
+		self.assertEqual(1, Rental(self.childrens_movie, 4).get_renter_point(4))
+		self.assertEqual(1, Rental(self.regular_movie, 3).get_renter_point(3))
+
+		# self.assertEqual(5, self.new_movie.get_renter_point(5))
+		# self.assertEqual(1, self.childrens_movie.get_renter_point(4))
+		# self.assertEqual(1, self.regular_movie.get_renter_point(3))
 
 	def test_statement(self):
 		stmt = self.c.statement()

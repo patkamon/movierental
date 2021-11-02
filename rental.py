@@ -20,8 +20,14 @@ class Rental:
 	def get_movie(self):
 		return self.movie
 
+	def get_title(self):
+		return self.movie.get_title()
+
 	def get_days_rented(self):
 		return self.days_rented
 
 	def rental_price(self):
 		return self.movie.price_code.price(self.days_rented)
+
+	def get_renter_point(self, days):
+		return self.movie.price_code.frequent_point(days)

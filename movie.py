@@ -49,5 +49,4 @@ class Movie:
 	def __str__(self):
 		return self.title
 
-	def get_renter_point(self, days):
-		return self.price_code.frequent_point(days)
+    # wait for delete
