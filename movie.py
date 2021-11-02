@@ -1,25 +1,21 @@
 
-
 class Movie:
-	"""
-	A movie available for rent.
-	"""
+    """
+    A movie available for rent.
+    """
+    def __init__(self, title, year):
+        self.__title = title
+        self.__year = year
+        self.__genre = ['sci-fi','romantic','horror','comedy','action']
 
-	def __init__(self, title):#price_code: PriceCode):
-		# if not isinstance(price_code, PriceCode):
-		# 	raise TypeError("price_code must be in PriceCode")
-		# Initialize a new movie. 
-		self.title = title
-		# self.price_code = price_code
+    @property
+    def get_title(self):
+        return self.__title
 
-	# def get_price_code(self):
-	# 	# get the price code
-	# 	return self.price_code
-	
-	def get_title(self):
-		return self.title
-	
-	def __str__(self):
-		return self.title
+    def __str__(self):
+        return self.__title
 
-    # wait for delete
+    def is_genre(self,genre):
+        return genre in self.__genre
+
+# wait for delete
