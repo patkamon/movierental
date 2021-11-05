@@ -1,4 +1,5 @@
 from enum import Enum
+from movie import Movie
 
 class PriceCode(Enum):
     """An enumeration for different kinds of movies and their behavior"""
@@ -39,7 +40,7 @@ class Rental:
 	field is used.
 	"""
 	
-	def __init__(self, movie, days_rented, price_code: PriceCode):
+	def __init__(self, movie: Movie, days_rented, price_code: PriceCode):
 		"""Initialize a new movie rental object for
 		   a movie with known rental period (daysRented).
 		"""
@@ -57,7 +58,7 @@ class Rental:
 		return self.movie
 
 	def get_title(self):
-		return self.movie.get_title()
+		return self.movie.get_title
 
 	def get_days_rented(self):
 		return self.days_rented

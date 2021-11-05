@@ -1,23 +1,24 @@
 # Demonstrate the movie rental code.
 # Create a customer with some movies and print a statement.
 
-from movie import Movie
+from movie import Movie, MovieCatalog
 from rental import Rental, PriceCode
 from customer import Customer
 
 
 def make_movies():
     movies = [
-        Movie("The Irishman"),
-        Movie("CitizenFour"),
-        Movie("Frozen"),
-        Movie("El Camino"),
-        Movie("Particle Fever")
+        catalog.get_movie("The Irishman"),
+        catalog.get_movie("CitizenFour"),
+        catalog.get_movie("Frozen"),
+        catalog.get_movie("El Camino"),
+        catalog.get_movie("Particle Fever")
     ]
     return movies
 
 
 if __name__ == '__main__':
+    catalog = MovieCatalog()
     # Create a customer with some rentals
     customer = Customer("Edward Snowden")
     days = 1

@@ -2,7 +2,7 @@ import re
 import unittest 
 from customer import Customer
 from rental import Rental, PriceCode
-from movie import Movie
+from movie import Movie, MovieCatalog
 
 class CustomerTest(unittest.TestCase): 
 	""" Tests of the Customer class"""
@@ -13,10 +13,13 @@ class CustomerTest(unittest.TestCase):
 		c = a customer
 		movies = list of some movies
 		"""
+		self.catalog = MovieCatalog()
 		self.c = Customer("Movie Mogul")
-		self.new_movie = Movie("Mulan")
-		self.regular_movie = Movie("CitizenFour")
-		self.childrens_movie = Movie("Frozen")
+		# self.new_movie = Movie("Mulan")
+		self.new_movie = self.catalog.get_movie("Mulan")
+		self.regular_movie = self.catalog.get_movie("The Arrival")
+		self.childrens_movie = self.catalog.get_movie("Jurassic World")
+
 
 	def test_billing(self):
 		"""Test billing is correct."""
