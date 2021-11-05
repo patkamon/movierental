@@ -23,19 +23,15 @@ class CustomerTest(unittest.TestCase):
 
 	def test_billing(self):
 		"""Test billing is correct."""
-		self.assertEqual(15, Rental(self.new_movie, 5, PriceCode.new_release).rental_price())
-		self.assertEqual(3, Rental(self.childrens_movie, 4, PriceCode.childrens).rental_price())
-		self.assertEqual(3.5, Rental(self.regular_movie, 3, PriceCode.regular).rental_price())
+		self.assertEqual(4.5, Rental(self.new_movie, 5, PriceCode.for_movie(self.new_movie)).rental_price())
+		self.assertEqual(3, Rental(self.childrens_movie, 4, PriceCode.for_movie(self.childrens_movie)).rental_price())
+		self.assertEqual(3.5, Rental(self.regular_movie, 3, PriceCode.for_movie(self.regular_movie)).rental_price())
 
 	def test_renter_point(self):
 		"""Test renter point work properly."""
-		self.assertEqual(5, Rental(self.new_movie, 5, PriceCode.new_release).get_renter_point(5))
-		self.assertEqual(1, Rental(self.childrens_movie, 4, PriceCode.childrens).get_renter_point(4))
-		self.assertEqual(1, Rental(self.regular_movie, 3, PriceCode.regular).get_renter_point(3))
-
-		# self.assertEqual(5, self.new_movie.get_renter_point(5))
-		# self.assertEqual(1, self.childrens_movie.get_renter_point(4))
-		# self.assertEqual(1, self.regular_movie.get_renter_point(3))
+		self.assertEqual(3, Rental(self.new_movie, 5, PriceCode.for_movie(self.new_movie)).get_renter_point(5))
+		self.assertEqual(1, Rental(self.childrens_movie, 4, PriceCode.for_movie(self.childrens_movie)).get_renter_point(4))
+		self.assertEqual(1, Rental(self.regular_movie, 3, PriceCode.for_movie(self.regular_movie)).get_renter_point(3))
 
 	def test_statement(self):
 		stmt = self.c.statement()
@@ -47,8 +43,8 @@ class CustomerTest(unittest.TestCase):
 		self.assertIsNotNone(matches)
 		self.assertEqual("0.00", matches[1])
 		# add a rental
-		self.c.add_rental(Rental(self.new_movie, 4, PriceCode.new_release)) # days
+		self.c.add_rental(Rental(self.new_movie, 4, PriceCode.for_movie(self.new_movie))) # days
 		stmt = self.c.statement()
 		matches = re.match(pattern, stmt.replace('\n',''), flags=re.DOTALL)
 		self.assertIsNotNone(matches)
-		self.assertEqual("12.00", matches[1])
+		self.assertEqual("3.00", matches[1])

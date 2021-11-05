@@ -23,6 +23,6 @@ if __name__ == '__main__':
     customer = Customer("Edward Snowden")
     days = 1
     for movie in make_movies():
-        customer.add_rental(Rental(movie, days, PriceCode.regular))
+        customer.add_rental(Rental(movie, days, PriceCode.for_movie(movie)))
         days += 1
     print(customer.statement())

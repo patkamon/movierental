@@ -1,5 +1,6 @@
 from enum import Enum
 from movie import Movie
+from datetime import datetime
 
 class PriceCode(Enum):
     """An enumeration for different kinds of movies and their behavior"""
@@ -16,6 +17,16 @@ class PriceCode(Enum):
     korea_series = {"price": lambda days: 10 + (2 * (days - 7)) if days > 7 else 10,
                  "frp": lambda days: 5
                  }
+
+    def for_movie(movie):
+        try:
+            if movie.get_year == datetime.today().year:
+                return PriceCode.new_release
+            elif movie.is_genre("Children"):
+                return PriceCode.childrens
+        except:
+            return PriceCode.regular
+        return PriceCode.regular
 
     def price(self, days: int) -> float:
         """Return the rental price for a given number of days."""

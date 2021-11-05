@@ -12,6 +12,10 @@ class Movie:
     def get_title(self):
         return self._title
 
+    @property
+    def get_year(self):
+        return self._year
+
     def __str__(self):
         return self._title
 
@@ -30,7 +34,7 @@ class MovieCatalog:
             data = f.readline().strip("\n").split(",")
             id = data[0]
             title = data[1]
-            year = data[2]
+            year = int(data[2])
             genre = data[3]
 
             new_movie = {'id': id, 'title': title, 'year': year, 'genre': genre}
